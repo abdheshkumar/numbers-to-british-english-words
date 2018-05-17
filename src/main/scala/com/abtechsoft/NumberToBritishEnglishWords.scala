@@ -3,6 +3,15 @@ package com.abtechsoft
 import com.abtechsoft.NumberToBritishEnglishWords._
 
 class NumberToBritishEnglishWords extends NumberToWords {
+
+  /**
+    * This function will convert number to british english words.
+    * This function will grouped number by 3 from right to left and zip each group with scale(e.g thousand,million etc)
+    * then finally combine english words of each group by `and` and comma(,)
+    *
+    * @param number : Long input number
+    * @return String british english words of given input number
+    */
   override def numberToEnglishWords(number: Long): String = {
     val positiveNumber = math.abs(number)
     val groupsFromRightEnd = positiveNumber.toString.reverse
@@ -20,9 +29,22 @@ class NumberToBritishEnglishWords extends NumberToWords {
     englishWords.reverse.mkString(", ").trim
   }
 
+  /**
+    * This function calculate quotient and remender.
+    *
+    * @param number   : Long input number
+    * @param devideBy : Long
+    * @return (Long, Long) quotient and remender
+    */
   private def extractDigitsBy(number: Long, devideBy: Long): (Long, Long) =
     (number / devideBy, number % devideBy)
 
+  /**
+    * Function will convert three or less than three digits number into british english words
+    *
+    * @param number : Long
+    * @return String
+    */
   private def numberWithThreeDigitGroupToWords(number: Long): String = {
     val (hundreds, tensAndOnes) = extractDigitsBy(number, HUNDRED)
     val (tens, ones) = extractDigitsBy(tensAndOnes, TEN)
